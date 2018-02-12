@@ -18,6 +18,7 @@ After you built the project you can run the jar from the apps folder.
 ```
 java -jar apps/TLS-Attacker-Template.jar
 ```
-The example code specifies a basic config with an example WorkflowTrace. We internally use Netbeans to work with TLS-Attacker. However you can use the IDE of your choice. If you have questions just contact @ic0nz1 or create an issue here on github.
+The example code specifies a basic config with an example WorkflowTrace. It then tries to connect to a server on localhost at port 4433. If there is no Server listening on that port you will get an ConfigurationException.
+We internally use Netbeans to work with TLS-Attacker. However you can use the IDE of your choice. If you have questions just contact @ic0nz1, @jurajsomorovsky or create an issue here on github.
 
 Have fun :)
