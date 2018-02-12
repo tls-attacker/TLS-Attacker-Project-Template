@@ -3,7 +3,7 @@ This is an example Maven project which uses TLS-Attacker as a library. It provie
 First of all you need to install TLS-Attacker. If you already did that you can skip this step.
 ```
 git clone https://github.com/RUB-NDS/TLS-Attacker.git
-cd TLs-Attacker
+cd TLS-Attacker
 mvn clean install
 cd ..
 \\Now you can clone this project 
