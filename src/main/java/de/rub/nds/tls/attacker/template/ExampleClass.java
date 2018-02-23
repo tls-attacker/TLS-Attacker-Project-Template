@@ -39,15 +39,15 @@ public class ExampleClass {
         //you can change the runningmode to server and adjust the defaultServerConnection if you 
         //want to run TLS-Attacker as a server
         config.setDefaulRunningMode(RunningModeType.CLIENT);
-        config.getDefaultClientConnection().setHostname("localhost");
-        config.getDefaultClientConnection().setPort(4433);
+        config.getDefaultClientConnection().setHostname(args[0]);
+        config.getDefaultClientConnection().setPort(Integer.parseInt(args[1]));
         config.getDefaultClientConnection().setTimeout(200);
         //We add some extensions
         config.setAddClientAuthzExtension(Boolean.TRUE);
         config.setAddHeartbeatExtension(Boolean.TRUE);
         //We specify some more parameters
-        config.setDefaultClientSupportedCiphersuites(CipherSuite.TLS_RSA_WITH_AES_128_CBC_SHA, CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA);
-        config.setHighestProtocolVersion(ProtocolVersion.TLS11);
+        config.setDefaultClientSupportedCiphersuites(CipherSuite.TLS_RSA_WITH_AES_128_CBC_SHA, CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA);        
+        config.setHighestProtocolVersion(ProtocolVersion.fromString(args[2]));
         //Now lets specify a WorkflowTrace
         WorkflowTrace trace = new WorkflowTrace();
         //Send a ClientHello with the specified extensions
