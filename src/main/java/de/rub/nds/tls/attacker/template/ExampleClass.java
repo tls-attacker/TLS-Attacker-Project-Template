@@ -38,7 +38,7 @@ public class ExampleClass {
         //we specify where we want to connect to
         //you can change the runningmode to server and adjust the defaultServerConnection if you 
         //want to run TLS-Attacker as a server
-        config.setDefaulRunningMode(RunningModeType.CLIENT);
+        config.setDefaultRunningMode(RunningModeType.CLIENT);
         config.getDefaultClientConnection().setHostname(args[0]);
         config.getDefaultClientConnection().setPort(Integer.parseInt(args[1]));
         config.getDefaultClientConnection().setTimeout(200);

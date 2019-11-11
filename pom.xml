@@ -3,18 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>TLS-Attacker-Template</artifactId>
     <groupId>de.rub.nds.tlstemplate</groupId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>de.rub.nds.tlsattacker</groupId>
             <artifactId>TLS-Core</artifactId>
-            <version>2.9</version>
+            <version>3.3.1</version>
         </dependency>
         <dependency>
             <groupId>de.rub.nds.tlsattacker</groupId>
             <artifactId>Attacks</artifactId>
-            <version>2.9</version>
+            <version>3.3.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
