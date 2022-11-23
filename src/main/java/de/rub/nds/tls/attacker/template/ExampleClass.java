@@ -33,8 +33,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 public class ExampleClass {
 
     public static void main(String args[]) {
-        if(args.length != 3) {
-            System.out.println("Expecting three arguments: [IP] [Port] [ProtocolVersion]\n Example: java -jar apps/TLS-Attacker-Template.jar \"10.160.160.3\" \"50001\" \"TLS12\"");
+        if (args.length != 3) {
+            System.out.println(
+                    "Expecting three arguments: [IP] [Port] [ProtocolVersion]\n Example: java -jar apps/TLS-Attacker-Template.jar \"10.160.160.3\" \"50001\" \"TLS12\"");
             return;
         }
         // Make sure to add BouncyCastle as a security provider
