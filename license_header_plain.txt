@@ -1,0 +1,9 @@
+/*
+ * A new TLS-Attacker project. 
+ * Adjust this text in license_header_plain.txt
+ *
+ * Copyright $YEAR
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */

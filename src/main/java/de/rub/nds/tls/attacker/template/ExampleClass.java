@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * A new TLS-Attacker project. 
+ * Adjust this text in license_header_plain.txt
+ *
+ * Copyright 2022
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 package de.rub.nds.tls.attacker.template;
 
@@ -29,48 +33,61 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 public class ExampleClass {
 
     public static void main(String args[]) {
-        //Make sure to add BouncyCastle as a security provider
+        if(args.length != 3) {
+            System.out.println("Expecting three arguments: [IP] [Port] [ProtocolVersion]\n Example: java -jar apps/TLS-Attacker-Template.jar \"10.160.160.3\" \"50001\" \"TLS12\"");
+            return;
+        }
+        // Make sure to add BouncyCastle as a security provider
         Security.addProvider(new BouncyCastleProvider());
-        //This is an example TLS-Attacker application
-        //Lets do some basic stuff
-        //we create some basic config with default values
+        // This is an example TLS-Attacker application
+        // Lets do some basic stuff
+        // we create some basic config with default values
         Config config = Config.createConfig();
-        //we specify where we want to connect to
-        //you can change the runningmode to server and adjust the defaultServerConnection if you 
-        //want to run TLS-Attacker as a server
+        // we specify where we want to connect to
+        // you can change the runningmode to server and adjust the defaultServerConnection if you
+        // want to run TLS-Attacker as a server
         config.setDefaultRunningMode(RunningModeType.CLIENT);
         config.getDefaultClientConnection().setHostname(args[0]);
         config.getDefaultClientConnection().setPort(Integer.parseInt(args[1]));
         config.getDefaultClientConnection().setTimeout(200);
-        //We add some extensions
+        // We add some extensions
         config.setAddClientAuthzExtension(Boolean.TRUE);
         config.setAddHeartbeatExtension(Boolean.TRUE);
-        //We specify some more parameters
-        config.setDefaultClientSupportedCiphersuites(CipherSuite.TLS_RSA_WITH_AES_128_CBC_SHA, CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA);        
+        // We specify some more parameters
+        config.setDefaultClientSupportedCipherSuites(
+                CipherSuite.TLS_RSA_WITH_AES_128_CBC_SHA, CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA);
         config.setHighestProtocolVersion(ProtocolVersion.fromString(args[2]));
-        //Now lets specify a WorkflowTrace
+        // Now let's specify a WorkflowTrace
         WorkflowTrace trace = new WorkflowTrace();
-        //Send a ClientHello with the specified extensions
+        // Send a ClientHello with the specified extensions
         trace.addTlsAction(new SendAction(new ClientHelloMessage(config)));
-        //Receive Some messages (we dont know how the server will react
+        // Receive Some messages (we dont know how the server will react
         trace.addTlsAction(new GenericReceiveAction());
-        //Now lets wait 2 seconds (why not :) )
+        // Now let's wait 2 seconds (why not :) )
         trace.addTlsAction(new WaitAction(2000));
-        //Now lets send an rsa client key exchange message + ccs + finished
-        trace.addTlsAction(new SendAction(new RSAClientKeyExchangeMessage(config), new ChangeCipherSpecMessage(config), new FinishedMessage(config)));
-        //Lets see what the other party has to say about this
+        // Now let's send an rsa client key exchange message + ccs + finished
+        trace.addTlsAction(
+                new SendAction(
+                        new RSAClientKeyExchangeMessage(),
+                        new ChangeCipherSpecMessage(),
+                        new FinishedMessage()));
+        // Let's see what the other party has to say about this
         trace.addTlsAction(new GenericReceiveAction());
-        //now lets send a ServerHello message after the Handshake was executed
+        // Now let's send a ServerHello message after the Handshake was executed
         trace.addTlsAction(new SendAction(new ServerHelloMessage(config)));
-        //lets see what the other party has to say about this
+        // Let's see what the other party has to say about this
         trace.addTlsAction(new GenericReceiveAction());
 
-        //Lets execute the Trace
+        // Let's execute the Trace
         State state = new State(config, trace);
         WorkflowExecutor executor = new DefaultWorkflowExecutor(state);
         executor.executeWorkflow();
-        //Ok the trace was now executed. Lets analyze it
-        System.out.println("Received Finished:" + WorkflowTraceUtil.didReceiveMessage(HandshakeMessageType.FINISHED, trace));
-        System.out.println("Selected CipherSuite: " + state.getTlsContext().getSelectedCipherSuite());
+        // Ok the trace was now executed. Let's analyze it
+        System.out.println(
+                "Received Finished:"
+                        + WorkflowTraceUtil.didReceiveMessage(
+                                HandshakeMessageType.FINISHED, trace));
+        System.out.println(
+                "Selected CipherSuite: " + state.getTlsContext().getSelectedCipherSuite());
     }
 }
