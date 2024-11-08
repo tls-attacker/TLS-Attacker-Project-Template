@@ -23,7 +23,7 @@ import de.rub.nds.tlsattacker.core.state.State;
 import de.rub.nds.tlsattacker.core.workflow.DefaultWorkflowExecutor;
 import de.rub.nds.tlsattacker.core.workflow.WorkflowExecutor;
 import de.rub.nds.tlsattacker.core.workflow.WorkflowTrace;
-import de.rub.nds.tlsattacker.core.workflow.WorkflowTraceUtil;
+import de.rub.nds.tlsattacker.core.workflow.WorkflowTraceResultUtil;
 import de.rub.nds.tlsattacker.core.workflow.action.GenericReceiveAction;
 import de.rub.nds.tlsattacker.core.workflow.action.SendAction;
 import de.rub.nds.tlsattacker.core.workflow.action.WaitAction;
@@ -86,8 +86,8 @@ public class ExampleClass {
         // Ok the trace was now executed. Let's analyze it
         System.out.println(
                 "Received Finished:"
-                        + WorkflowTraceUtil.didReceiveMessage(
-                                HandshakeMessageType.FINISHED, trace));
+                        + WorkflowTraceResultUtil.didReceiveMessage(
+                                trace, HandshakeMessageType.FINISHED));
         System.out.println(
                 "Selected CipherSuite: " + state.getTlsContext().getSelectedCipherSuite());
     }
