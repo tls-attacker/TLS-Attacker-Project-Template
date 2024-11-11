@@ -14,9 +14,9 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                // This is necessary to make the origin/master refspec available to spotless (for ratcheting)
+                // This is necessary to make the origin/main refspec available to spotless (for ratcheting)
                 withCredentials([gitUsernamePassword(credentialsId: 'github-app-tls-attacker')]) {
-                    sh 'git fetch origin master:refs/remotes/origin/master'
+                    sh 'git fetch origin main:refs/remotes/origin/main'
                 }
                 withMaven(jdk: env.JDK_TOOL_NAME, maven: env.MAVEN_TOOL_NAME) {
                     sh 'mvn clean'
@@ -52,7 +52,7 @@ pipeline {
         stage('Code Analysis') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                     changeRequest()
                 }
@@ -75,7 +75,7 @@ pipeline {
         stage('Unit Tests') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                     changeRequest()
                 }
@@ -97,7 +97,7 @@ pipeline {
         stage('Integration Tests') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                     changeRequest()
                 }
@@ -125,7 +125,7 @@ pipeline {
         stage('Deploy to Internal Nexus Repository') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                 }
             }
