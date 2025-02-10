@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        JDK_TOOL_NAME = 'JDK 11'
+        JDK_TOOL_NAME = 'JDK 21'
         MAVEN_TOOL_NAME = 'Maven 3.9.9'
     }
 
@@ -14,10 +14,6 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                // This is necessary to make the origin/main refspec available to spotless (for ratcheting)
-                withCredentials([gitUsernamePassword(credentialsId: 'github-app-tls-attacker')]) {
-                    sh 'git fetch origin main:refs/remotes/origin/main'
-                }
                 withMaven(jdk: env.JDK_TOOL_NAME, maven: env.MAVEN_TOOL_NAME) {
                     sh 'mvn clean'
                 }
