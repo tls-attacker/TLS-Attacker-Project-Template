@@ -41,7 +41,7 @@
         <dependency>
             <groupId>de.rub.nds.tls.attacker</groupId>
             <artifactId>tls-core</artifactId>
-            <version>7.5.3</version>
+            <version>7.6.0</version>
         </dependency>
 
         <!-- scope: test -->
